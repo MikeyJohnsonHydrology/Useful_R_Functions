@@ -3,8 +3,6 @@
 ###
 ### A simple function that will convert latitude and longitude to nothing and easing for zone UNM 10
 ###
-### note: lonitude (E) is negitive
-###
 ### By: Mikey Johnson
 ########################################################################################################
 

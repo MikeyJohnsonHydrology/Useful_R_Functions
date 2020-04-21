@@ -11,16 +11,29 @@
 ### Date of Peak SWE: The data where Peak Swe occurs
 ### Snow Disapearence Date: The data at which SWE first goes to zero
 ###
+### Notes: not library or package is needed for these function.  To test these function there are several
+###        lines of code that are commented out in this R-script. Finaly, this code works best on daily data.
+###
 ### By: Mikey Johnson
 ########################################################################################################
 
-### Peak SWE ###
+
+# code to test the functions
+#library(snotelr)    # downloading SNOTEL data
+#Mt.Rose <- snotel_download(site_id = 652, internal = TRUE) # downloading Hogg Pass, SWE[mm] and temp[Degrees C]
+#MR_WY_2018 <- filter(Mt.Rose, date <= "2018-09-30", date >= "2017-10-01") # seperating out the data (End Date, Start Date)
+
+
+##### Peak SWE #####
 Peak_SWE <- function(dates, SWE){
   peak <- max(SWE)
   return(peak)
 }
 
-### Date of Peak SWE ###
+#Peak_SWE(MR_WY_2018$date, MR_WY_2018$snow_water_equivalent)
+
+
+##### Date of Peak SWE #####
 Date_of_Peak_SWE <- function(dates, SWE){
   peak <- max(SWE)
   days_at_peak <- which(SWE == peak)
@@ -28,7 +41,10 @@ Date_of_Peak_SWE <- function(dates, SWE){
   return(peak_swe_date)
 }
 
-### Snow Disapearnece Date ###
+#Date_of_Peak_SWE(MR_WY_2018$date, MR_WY_2018$snow_water_equivalent)
+
+
+##### Snow Disapearnece Date #####
 SDD <- function(dates, SWE){
   peak <- max(SWE)
   days_at_peak <- which(SWE == peak)
@@ -38,10 +54,33 @@ SDD <- function(dates, SWE){
   return(sdd)
 }
 
+#SDD(MR_WY_2018$date, MR_WY_2018$snow_water_equivalent)
 
-# Functions test
-#d <- as.Date(c(1:50))
-#swe <-c(0:20,25,30,20:1,1,1,0,0,0,1,0)
-#Peak_SWE(d,swe)
-#Date_of_Peak_SWE(d,swe)
-#SDD(d,swe)
+
+##### Snow on Date #####
+Snow_on_Date <- function(dates, SWE){
+  days_above_zero <-which(SWE > 0)
+  snow_check <- rep(NA,length(days_above_zero)) # Check to see if snow is on the gound 5 days after this day
+  for(i in 1:length(days_above_zero)){
+    snow_check[i] <-days_above_zero[i+1] == days_above_zero[i]+1 && 
+      days_above_zero[i+2] == days_above_zero[i]+2 &&
+      days_above_zero[i+3] == days_above_zero[i]+3 &&
+      days_above_zero[i+4] == days_above_zero[i]+4 &&
+      days_above_zero[i+5] == days_above_zero[i]+5
+    }
+  SOD <- dates[days_above_zero[first(which(snow_check == TRUE))]] # First of the days where snow is on the gound longer than 5 days
+  return(SOD)
+}
+
+#Snow_on_Date(MR_WY_2018$date, MR_WY_2018$snow_water_equivalent)
+
+
+### Center of Mass ###
+Center_of_Mass <- function(dates, SWE){
+start_day <- which(dates == Snow_on_Date(dates,SWE))
+end_day <- which(dates == SDD(dates,SWE))
+COM <- round(sum(start_day:(end_day-1) * SWE[start_day:(end_day-1)]) / sum(SWE[start_day:(end_day-1)]))
+return(dates[COM])
+}
+
+#Center_of_Mass(MR_WY_2018$date, MR_WY_2018$snow_water_equivalent)

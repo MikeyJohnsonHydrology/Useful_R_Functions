@@ -10,6 +10,8 @@
 ### Peak SWE: The maximum amount of avaialbe snow water equivalnt [depth]
 ### Date of Peak SWE: The data where Peak Swe occurs
 ### Snow Disapearence Date: The data at which SWE first goes to zero
+### Snow on date: The data that snow is measured for 5 consecutive days
+### Center of Mass: The mass weighted average of occurrence of a hydrologic time series (date)
 ###
 ### Notes: not library or package is needed for these function.  To test these function there are several
 ###        lines of code that are commented out in this R-script. Finaly, this code works best on daily data.

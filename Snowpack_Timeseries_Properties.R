@@ -28,7 +28,7 @@
 
 ##### Peak SWE #####
 Peak_SWE <- function(dates, SWE){
-  peak <- max(SWE)
+  peak <- max(SWE[1:300]) # Limiting snow season to August 1
   return(peak)
 }
 
@@ -37,7 +37,7 @@ Peak_SWE <- function(dates, SWE){
 
 ##### Date of Peak SWE #####
 Date_of_Peak_SWE <- function(dates, SWE){
-  peak <- max(SWE)
+  peak <- max(SWE[1:300]) # Limiting snow season to August 1
   days_at_peak <- which(SWE == peak)
   peak_swe_date <- dates[first(days_at_peak)]
   return(peak_swe_date)
@@ -48,11 +48,15 @@ Date_of_Peak_SWE <- function(dates, SWE){
 
 ##### Snow Disapearnece Date #####
 SDD <- function(dates, SWE){
-  peak <- max(SWE)
-  days_at_peak <- which(SWE == peak)
-  peak_swe_date <- dates[first(days_at_peak)]
-  zero_days_after_peak_swe <- which(SWE==0 & dates >= peak_swe_date)
-  sdd <- dates[first(zero_days_after_peak_swe)]
+  peak <- max(SWE[1:300]) # Limiting snow season to August 1
+  if(peak < 0.01 | is.na(peak)){
+    sdd = NA
+    } else{
+    days_at_peak <- which(SWE == peak)
+    peak_swe_date <- dates[first(days_at_peak)]
+    zero_days_after_peak_swe <- which(SWE==0 & dates >= peak_swe_date)
+    sdd <- dates[first(zero_days_after_peak_swe)]
+    }
   return(sdd)
 }
 

@@ -15,7 +15,7 @@ lat_lon_to_UTM_10 <- function(latitude,longitude){
 cord.dec <- SpatialPoints(cbind(longitude, latitude), proj4string=CRS("+proj=longlat"))
 cord.UTM <- spTransform(cord.dec, CRS("+proj=utm +zone=10 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs"))
 temp <- extent(cord.UTM)
-return.data <-c(temp@xmin,temp@ymax,10)
+return.data <- data.frame(Easting=temp@xmin, Northing=temp@ymax, Zone=10)
 return(return.data)
 }
 

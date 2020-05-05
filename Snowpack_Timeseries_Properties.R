@@ -90,7 +90,7 @@ Snow_on_Date <- function(dates,
 ##### Center of Mass #####
 Center_of_Mass <- function(dates,
                            SWE,
-                           days_with_snow = 5 # n = days_with_snow for the Snow_on_Date function
+                           days_with_snow = 5 # days_with_snow for the Snow_on_Date function
                            ){
 start_day <- which(dates == Snow_on_Date(dates,SWE, days_with_snow))
 end_day <- which(dates == SDD(dates,SWE))

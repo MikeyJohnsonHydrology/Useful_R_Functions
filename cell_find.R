@@ -2,7 +2,6 @@
 # cell_find.R
 #
 # a simple script to find cell on a grid of specifice size
-# the code is written from the lower left corener
 #
 ###################################################################
 
@@ -26,7 +25,7 @@ cell.find <- function(x = 591144,            # Location of intrest (same coridna
 }
 
 # Test Data to run the function
-cell.find(591144, 4919499, one_one_cell = "LLC")     #Hogg pass SnoTel Reported Location 
-cell.find(591025.39,4919205, one_one_cell = "LLC")  #Hogg Pass SnoTel Real Location
-cell.find(591025.39,4919205, one_one_cell = "ULC")  #Hogg Pass SnoTel Real Location
+#cell.find(591144, 4919499, one_one_cell = "LLC")     #Hogg pass SnoTel Reported Location 
+#cell.find(591025.39,4919205, one_one_cell = "LLC")  #Hogg Pass SnoTel Real Location
+#cell.find(591025.39,4919205, one_one_cell = "ULC")  #Hogg Pass SnoTel Real Location, from the uper left cell
 

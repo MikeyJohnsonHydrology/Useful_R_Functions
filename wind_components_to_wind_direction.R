@@ -6,7 +6,7 @@
 ##
 ###################################################################################
 
-wind_components_to_directions <- function(u,v){
+wind_components_to_wind_direction <- function(u,v){
 # u (easting)
 # v (northing)
 
@@ -17,8 +17,8 @@ theta.deg <- 180 * theta.rads / pi
 return(theta.deg)
 }
 
-#wind_components_to_directions(0,1) # 0, North
-#wind_components_to_directions(1,1) # 45, North East
-#wind_components_to_directions(1,0) # 90, East
-#wind_components_to_directions(1,-1) # 90, South East
-#wind_components_to_directions(0,-1) # 180, South
+#wind_components_to_wind_direction(0,1) # 0, North
+#wind_components_to_wind_direction(1,1) # 45, North East
+#wind_components_to_wind_direction(1,0) # 90, East
+#wind_components_to_wind_direction(1,-1) # 135, South East
+#wind_components_to_wind_direction(0,-1) # 180, South

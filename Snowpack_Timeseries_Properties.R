@@ -20,9 +20,10 @@
 ### Last Edited: May 04, 2020
 ########################################################################################################
 
+#library needed for the function
+library(dplyr)      # data manipulation
 
 # code to test the functions
-#library(dplyr)      # data manipulation
 #library(snotelr)    # downloading SNOTEL data
 #Mt.Rose <- snotel_download(site_id = 652, internal = TRUE) # downloading Hogg Pass, SWE[mm] and temp[Degrees C]
 #MR_WY_2018 <- filter(Mt.Rose, date <= "2018-09-30", date >= "2017-10-01") # seperating out the data (End Date, Start Date)

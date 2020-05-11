@@ -97,7 +97,7 @@ end_day <- which(dates == SDD(dates,SWE))
 COM <- round(sum(start_day:(end_day-1) * SWE[start_day:(end_day-1)]) / sum(SWE[start_day:(end_day-1)]))
 return(dates[COM])
 }
-Center_of_Mass(MR_WY_2018$date, MR_WY_2018$snow_water_equivalent,5)
+#Center_of_Mass(MR_WY_2018$date, MR_WY_2018$snow_water_equivalent,5)
 
 
 

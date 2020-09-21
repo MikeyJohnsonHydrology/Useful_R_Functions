@@ -26,12 +26,14 @@ snow_zone <- function(daily_swe,
                       
                       # Note (Sterm, Holgrem & Liston, 1994) defines ephemeral to be bewteen 0-50 (cm)
 ){
-
+#  tmp <- data.frame(SWE = c(0,1,1,1,1,1,1,1,1,1,1,1,1,0)*40 - min_snow) %>%
   tmp <- data.frame(SWE = daily_swe - min_snow) %>%
     mutate(snow_on = ifelse(SWE > 0,1,0)) %>%
     mutate(days_of_snow = sequence(rle(snow_on)$lengths)) %>%
     filter(SWE > 0)
-  
+
+  if(nrow(tmp)==0){tmp2=0}else{tmp2=max(tmp$days_of_snow)}
+    
   # retunr the data as a character or a numeric value
   if(!(return_data_type == "numeric" | return_data_type == "character")){
     print("unrecognised return_data_type, use either 'numeric' or 'character'")
@@ -48,10 +50,9 @@ snow_zone <- function(daily_swe,
     }
 
   # Defining the zone
-  if(max(tmp$days_of_snow) <= min_days){zone_type = data_type[1]}
-  else{zone_type = data_type[2]}
-  if(max(tmp$days_of_snow) >= max_days){zone_type = data_type[3]}
-  if(max(tmp$days_of_snow) >= 329){zone_type = data_type[4]} # approximently 90% of the days in the year ()
+  if(tmp2 <= min_days){zone_type = data_type[1]} else{zone_type = data_type[2]}
+  if(tmp2 >= max_days){zone_type = data_type[3]}
+  if(tmp2 >= 329){zone_type = data_type[4]} # approximently 90% of the days in the year ()
   return(zone_type)
 }
 
@@ -63,13 +64,18 @@ snow_zone <- function(daily_swe,
 
 
 #Hogg_Pass <- snotel_download(site_id = 526, internal = TRUE) # downloading Hogg Pass, SWE[mm] and temp[Degrees C]
-##HP <- filter(Hogg_Pass, date <= "2015-09-30", date >= "2014-10-01") # Low Snow Year
-#HP <- filter(Hogg_Pass, date <= "2014-09-30", date >= "2013-10-01") # Normal Snow Year
+#HP_2014 <- filter(Hogg_Pass, date <= "2014-09-30", date >= "2013-10-01") # Normal Snow Year
+#HP_2015 <- filter(Hogg_Pass, date <= "2015-09-30", date >= "2014-10-01") # Low Snow Year
 
-#snow_zone(daily_swe = HP$snow_water_equivalent,       #SWE in (mm)
-#          min_snow = 0.02 * 1000,                     #SWE in (mm)
+
+#snow_zone(daily_swe = HP_2014$snow_water_equivalent,       #SWE in (mm)
+#          min_snow = 0.02 * 1000,                          #SWE in (mm)
 #          return_data_type = "character")
 
-#snow_zone(daily_swe = HP$snow_water_equivalent,       #SWE in (mm)
-#          min_snow = 0.02 * 1000)                     #SWE in (mm)
+#snow_zone(daily_swe = HP_2015$snow_water_equivalent,       #SWE in (mm)
+#          min_snow = 0.02 * 1000,                          #SWE in (mm)
+#          return_data_type = "character")
+
+#snow_zone(daily_swe = c(0,0,0),       #SWE in (mm)
+#          min_snow = 0.02)
 

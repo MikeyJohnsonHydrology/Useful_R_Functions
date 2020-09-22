@@ -51,27 +51,27 @@ SP_Snow_Zone <- function(
 #### Demp code to run the function ############################################################
 
 ## loading librarys
-library(dplyr)   # easy data manipulation
-library(snotelr) # downloading SNOTEL data
+#library(dplyr)   # easy data manipulation
+#library(snotelr) # downloading SNOTEL data
 
 
-Hogg_Pass <- snotel_download(site_id = 526, internal = TRUE) # downloading Hogg Pass, SWE[mm] and temp[Degrees C]
-HP_2014 <- filter(Hogg_Pass, date <= "2014-09-30", date >= "2013-10-01") # Normal Snow Year
-HP_2015 <- filter(Hogg_Pass, date <= "2015-09-30", date >= "2014-10-01") # Low Snow Year
+#Hogg_Pass <- snotel_download(site_id = 526, internal = TRUE) # downloading Hogg Pass, SWE[mm] and temp[Degrees C]
+#HP_2014 <- filter(Hogg_Pass, date <= "2014-09-30", date >= "2013-10-01") # Normal Snow Year
+#HP_2015 <- filter(Hogg_Pass, date <= "2015-09-30", date >= "2014-10-01") # Low Snow Year
 
 
-SP_Snow_Zone(daily_swe = HP_2014$snow_water_equivalent,       #SWE in (mm)
-          min_snow = 0.02 * 1000,                             #SWE in (mm)
-          return_data_type = "character")
+#SP_Snow_Zone(daily_swe = HP_2014$snow_water_equivalent,       #SWE in (mm)
+#          min_snow = 0.02 * 1000,                             #SWE in (mm)
+#          return_data_type = "character")
 
-SP_Snow_Zone(daily_swe = HP_2015$snow_water_equivalent,       #SWE in (mm)
-          min_snow = 0.02 * 1000,                             #SWE in (mm)
-          return_data_type = "character")
+#SP_Snow_Zone(daily_swe = HP_2015$snow_water_equivalent,       #SWE in (mm)
+#          min_snow = 0.02 * 1000,                             #SWE in (mm)
+#          return_data_type = "character")
 
-SP_Snow_Zone(daily_swe = HP_2015$snow_water_equivalent,       #SWE in (mm)
-             min_snow = 0.02 * 1000)                             #SWE in (mm)
+#SP_Snow_Zone(daily_swe = HP_2015$snow_water_equivalent,       #SWE in (mm)
+#             min_snow = 0.02 * 1000)                          #SWE in (mm)
 
-SP_Snow_Zone(daily_swe = c(0,0,0,0,0,0,0,0,0),                #SWE in (mm)
-          min_snow = 0.02)
+#SP_Snow_Zone(daily_swe = c(0,0,0,0,0,0,0,0,0),                #SWE in (mm)
+#          min_snow = 0.02)
 
 

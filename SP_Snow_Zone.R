@@ -5,7 +5,8 @@
 ### zone (Saavedra et al., 2017, Hammond et al., 2018).                     ###
 ###                                                                         ###
 ### One small adjustment to the logic is the addtions of a minimum snow     ###
-### threshold.  This reduces small snow values generated in a snow model    ###
+### threshold.  This removes the very small snow values generated in a      ###
+### snow models.                                                            ###
 ###                                                                         ###
 ###                                                                         ###
 ### Input data:                                                             ###

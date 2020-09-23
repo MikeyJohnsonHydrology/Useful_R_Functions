@@ -8,6 +8,7 @@
 #
 ###############################################################################################
 # loading librarys
+library(devtools)   # 
 library(snotelr)    # downloading SNOTEL data
 library(dplyr)      # data manipulation
 library(ggplot2)    # plotting
@@ -28,6 +29,7 @@ HP <- filter(Hogg_Pass, date <= "2014-09-30", date >= "2013-10-01") # Normal Sno
 #Mt.Rose <- snotel_download(site_id = 652, internal = TRUE) # downloading Hogg Pass, SWE[mm] and temp[Degrees C]
 #MR <- filter(Hogg_Pass, date <= "2019-09-30", date >= "2018-10-01") # seperating out the data (End Date, Start Date)
 
+HP$date = as.Date(HP$date)
 ###############################################################################################
 # plotting swe
 ggplotly(ggplot()+
@@ -63,7 +65,13 @@ for (i in 2:nrow(HP)){
 HP <- HP %>% 
   mutate(del_swe = (c(0,diff(snow_water_equivalent)))) %>%
   mutate(Storm_Flag = ifelse(del_swe >= 30,1,0))
-plot(as.Date(HP$date),HP$Storm_Flag)
+
+ggplotly(ggplot(data = HP)+
+           geom_point(aes(x=date,y=Storm_Flag)) +
+           xlab("") + ylab("Snow Water Equivalant (mm)")+
+           ggtitle("Storm Days")+
+           theme_cowplot(12))
+
 
 ###############################################################################################
 # Counting Storms, # consider time step threshhold for gap between storms
@@ -96,28 +104,12 @@ storm_counter
 
 ###############################################################################################
 # Determining if the site is in the (seasonal snow zone) / (intermintent snow zone) / (rain zone)
+source_url("https://raw.githubusercontent.com/MikeySnowHydro/Useful_R_Functions/master/SP_Snow_Zone.R")
 
-snow_zone <- function(daily_swe = HP$snow_water_equivalent,
-                      max_days = 30,
-                      min_days = 5,
-                      min_snow = 0.02 * 1000 #SWE in (mm) # Note (Sterm, Holgrem & Liston, 1994) defines ephemeral to be bewteen 0-50 (cm)
-                      ){
-
-  tmp <- data.frame(SWE = daily_swe - min_snow) %>%
-    mutate(snow_on = ifelse(SWE > 0,1,0)) %>%
-    mutate(days_of_snow = sequence(rle(snow_on)$lengths)) %>%
-    filter(SWE > 0)
-
-#  max(tmp$days_of_snow)
-
-  if(max(tmp$days_of_snow) <= min_days){zone_type = "Rain Zone"}
-  else{zone_type = "Ephemeral Snow Zone"}
-  if(max(tmp$days_of_snow) >= max_days){zone_type = "Seasonal Snow Zone"}
-  if(max(tmp$days_of_snow) >= 350){zone_type = "Perminate Snow Zone"}
-  return(zone_type)
-}
-
-snow_zone()
+SP_Snow_Zone(daily_swe = HP$snow_water_equivalent,
+          min_snow = 0.02 * 1000,        # Note (Sterm, Holgrem & Liston, 1994) defines ephemeral to be bewteen 0-50 (cm)
+          return_data_type = "character"   # choose "numeric" or "character"
+          )
 
 
 

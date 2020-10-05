@@ -9,8 +9,12 @@
 ###        You will need to downlode "BCQC SNOTEL data.zip" & 
 ###                                  "file of SNOTEL stations.zip
 ###
-###         You will then need to extract to zip files and have them in the 
-###         same folder as this R-script
+###         Next will then need to extract to zip files and have the new folders 
+###         in the same directory as this R-script.
+###
+###         You might need to check to make sure you filepath names match mine
+###
+###         I will try to simplifiy this into a function at some point
 ###
 ### By: Mikey Johnson
 ### Last edited: 2020-10-04

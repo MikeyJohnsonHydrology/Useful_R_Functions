@@ -120,9 +120,9 @@ SNOTEL_bcqc_data_collect <- function(FP_SNOTEL_summary,
                                   "date")
 
   station_data_metric$daily_precipitation_mm <- station_data_metric$daily_precipitation_mm * 25.4
-  station_data_metric$max_air_temperature_C <- (station_data_metric$max_air_temperature_C + 32) * 5/9
-  station_data_metric$min_air_temperature_C <- (station_data_metric$min_air_temperature_C + 32) * 5/9
-  station_data_metric$mean_air_temperature_C <- (station_data_metric$mean_air_temperature_C + 32) * 5/9
+  station_data_metric$max_air_temperature_C <- (station_data_metric$max_air_temperature_C - 32) * 5/9
+  station_data_metric$min_air_temperature_C <- (station_data_metric$min_air_temperature_C - 32) * 5/9
+  station_data_metric$mean_air_temperature_C <- (station_data_metric$mean_air_temperature_C - 32) * 5/9
   station_data_metric$SWE_mm <- station_data_metric$SWE_mm * 25.4
 
 

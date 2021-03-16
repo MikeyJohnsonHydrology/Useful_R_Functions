@@ -101,6 +101,38 @@ return(dates[COM])
 #Center_of_Mass(MR_WY_2018$date, MR_WY_2018$snow_water_equivalent,5)
 
 
+##### Cumulative Gain function #####
+cumulative_gain <- function(SWE_timeseries){
+
+  cume_gain <- rep(NA, length(SWE_timeseries))
+  cume_gain[1] <- 0
+
+  for (i in 2:length(SWE_timeseries)){
+    cume_gain[i] <- ifelse(SWE_timeseries[i]>SWE_timeseries[i-1],
+                           cume_gain[i-1]+abs(SWE_timeseries[i-1]-SWE_timeseries[i]),
+                           cume_gain[i-1])
+  }
+  return(cume_gain)
+}
+
+
+##### Cumulative Loss function #####
+cumulative_loss <- function(SWE_timeseries){
+  
+  cume_loss <- rep(NA, length(SWE_timeseries))
+  cume_loss[1] <- 0
+  
+  for (i in 2:length(SWE_timeseries)){
+    cume_loss[i] <- ifelse(SWE_timeseries[i]<SWE_timeseries[i-1],
+                           cume_loss[i-1]-abs(SWE_timeseries[i-1]-SWE_timeseries[i]),
+                           cume_loss[i-1])
+  }
+  return(cume_loss)
+}
+
+
+
+
 
 # ------------- Old Snow-on date function -------------------#
 ##### Snow-on Date #####

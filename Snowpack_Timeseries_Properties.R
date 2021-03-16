@@ -101,6 +101,8 @@ return(dates[COM])
 #Center_of_Mass(MR_WY_2018$date, MR_WY_2018$snow_water_equivalent,5)
 
 
+
+
 ##### Cumulative Gain function #####
 cumulative_gain <- function(SWE_timeseries){
 
@@ -114,6 +116,9 @@ cumulative_gain <- function(SWE_timeseries){
   }
   return(cume_gain)
 }
+
+
+
 
 
 ##### Cumulative Loss function #####

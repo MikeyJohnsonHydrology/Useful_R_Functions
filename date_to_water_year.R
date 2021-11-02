@@ -1,7 +1,7 @@
 #############################################################
 ### date_to_water_year
 ###
-### A simpel script to convert a date object to a water year
+### A simple script to convert a date object to a water year
 ###
 #############################################################
 
